@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> موقع تيمبات  </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #704bc5 0%, #c54cbb 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .image-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .image-card:nth-child(1) { animation-delay: 0.1s; }
+        .image-card:nth-child(2) { animation-delay: 0.2s; }
+        .image-card:nth-child(3) { animation-delay: 0.3s; }
+        .image-card:nth-child(4) { animation-delay: 0.4s; }
+        .image-card:nth-child(5) { animation-delay: 0.5s; }
+        .image-card:nth-child(6) { animation-delay: 0.6s; }
+        .image-card:nth-child(7) { animation-delay: 0.7s; }
+        .image-card:nth-child(8) { animation-delay: 0.8s; }
+        .image-card:nth-child(9) { animation-delay: 0.9s; }
+        .image-card:nth-child(10) { animation-delay: 1s; }
+        .image-card:nth-child(11) { animation-delay: 1.1s; }
+        .image-card:nth-child(12) { animation-delay: 1.2s; }
+        .image-card:nth-child(13) { animation-delay: 1.3s; }
+        .image-card:nth-child(14) { animation-delay: 1.4s; }
+        .image-card:nth-child(15) { animation-delay: 1.5s; }
+        .image-card:nth-child(16) { animation-delay: 1.6s; }
+        .image-card:nth-child(17) { animation-delay: 1.7s; }
+
+        .image-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .image-container {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-card:hover .image-container img {
+            transform: scale(1.05);
+        }
+
+        .button-container {
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .download-button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #2549e7 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-width: 150px;
+        }
+
+        .download-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .download-button:active {
+            transform: scale(0.98);
+        }
+
+        .download-button.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .icon {
+            font-size: 1.2em;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            display: none;
+            z-index: 1000;
+            animation: slideInMessage 0.3s ease-out;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .message.success {
+            background: #4caf50;
+        }
+
+        .message.error {
+            background: #f44336;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        @keyframes slideInMessage {
+            from {
+                transform: translateX(300px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .image-container {
+                height: 250px;
+            }
+
+            .message {
+                right: 10px;
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="message success" id="successMsg">
+        ✓ تم تحميل الصورة بنجاح!
+    </div>
+
+    <div class="message error" id="errorMsg">
+        ✗ حدث خطأ في التحميل
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>خد احسن التمبات من هنا 😍</h1>
+            <p>دوس علي تحميل و خد الصورة اللي عايزيها❤️</p>
+        </div>
+
+        <div class="gallery" id="galleryContainer">
+        </div>
+    </div>
+
+    <script>
+        const imagesList = [
+            { id: 1, src: "timps/meme (15).jpg" },
+            { id: 2, src: "https://p16-comment-sign-sg.tiktokcdn.com/tos-alisg-i-zt8igodiya-sg/2869fb2207c44a1eb7420aefadbc15d7~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=762e42db&x-expires=1793361600&x-signature=J0418rGsm5PoKAMzPwAvWlCiA4U%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 3, src: "https://p19-comment-sign-sg.tiktokcdn.com/tos-alisg-i-zt8igodiya-sg/9e5a1e5dcd3a4404bbfa7ba9e08dcc3f~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=a0be9e3a&x-expires=1793361600&x-signature=YMtZhsa9fDnVfKlNUvTTQX9xkJA%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 4, src: "https://p19-comment-sign-va.tiktokcdn.com/tos-maliva-i-jj85edgx6n-us/48af254019024563a3f0c33372e5d4ec~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=bfbdeb7a&x-expires=1793361600&x-signature=Bi%2FIUsE8cHlP5JDT2mw3sqK8QOw%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 5, src: "https://p19-comment-sign-va.tiktokcdn.com/tos-maliva-i-jj85edgx6n-us/9b69121453dd4278ab310eee19f49426~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=2e716b48&x-expires=1793361600&x-signature=zGUhzR%2B3%2F2BPpC0XfMf1Fu4seOg%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 6, src: "https://p16-comment-sign-sg.tiktokcdn.com/tos-alisg-i-zt8igodiya-sg/b21e7c94705547e78b2d531d097a266f~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=7c8fae60&x-expires=1793361600&x-signature=w53ogfgwL9XjCVZDD5DHOjjShHk%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 7, src: "https://p16-comment-sign-sg.tiktokcdn.com/tos-alisg-i-zt8igodiya-sg/cacf44f916fb4f13a17cbf1de675bfb6~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=c7743461&x-expires=1793361600&x-signature=DG6HbqjlkDhNhngp%2BPfZcgkm520%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 8, src: "https://p19-comment-sign-sg.tiktokcdn.com/tos-alisg-i-zt8igodiya-sg/87d839e6112d43ce8416acafdd2bdf3c~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=3ff9b81e&x-expires=1793361600&x-signature=X7u40mbY9gouPMKLdSXfgsSrwss%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 9, src: "https://p16-comment-sign-va.tiktokcdn.com/tos-maliva-i-jj85edgx6n-us/c4dba327ba214c71bf7c8fa7682949c8~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=6cd45568&x-expires=1793361600&x-signature=ByG236AurG03ASMIhiV5371QIk0%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 10, src: "https://p19-comment-sign-va.tiktokcdn.com/tos-maliva-i-jj85edgx6n-us/44dae4fd18e141969cbd843a72ab885c~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=4210e087&x-expires=1793361600&x-signature=JSkgPSp9uxFwNmzKx0lWVRwbKX4%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 11, src: "https://p19-comment-sign-sg.tiktokcdn.com/tos-alisg-i-zt8igodiya-sg/6b9caa55759e432898406e064c2ddb80~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=c7e8a5c4&x-expires=1793361600&x-signature=YROKONpP%2Fq9UJw8Cpsfj9v8odIM%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 12, src: "https://p16-comment-sign-sg.tiktokcdn.com/tos-alisg-i-zt8igodiya-sg/4fd4966775e84597982ce88ba6a481b8~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=1c85b1e0&x-expires=1793361600&x-signature=WMrJ7R6xQ7Ah3OQcPFBMXEArj88%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 13, src: "https://p16-comment-sign-va.tiktokcdn.com/tos-maliva-i-jj85edgx6n-us/c32e88e5398f49bf9b2f3cfa497dfaa8~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=d643710b&x-expires=1793444400&x-signature=bsCXyhTi4TAp4Dr0vWEKT9uBDiI%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 14, src: "https://p16-comment-sign-sg.tiktokcdn.com/tos-alisg-i-zt8igodiya-sg/b6284cc1f4304dd0ba80ba54b9363445~tplv-jj85edgx6n-image-origin.jpeg?dr=8569&refresh_token=8dc48e5f&x-expires=1793444400&x-signature=MmAUomQ0q5xFr%2B1nve%2B8geICfxE%3D&t=67a6c45e&ps=a0626fcd&shp=ff37627b&shcp=ff37627b&idc=my" },
+            { id: 15, src: "timps/meme (56).jpg" },
+            { id: 16, src: "timps/meme (57).jpg" },
+            { id: 17, src: "timps/meme (58).jpg" },
+            { id: 18, src: "timps/meme (59).jpg" },
+            { id: 19, src: "timps/meme (60).jpg" },
+            { id: 20, src: "timps/meme (61).jpg" },
+          ];            
+        function createGallery() {
+            const gallery = document.getElementById('galleryContainer');
+            
+            imagesList.forEach(image => {
+                const card = document.createElement('div');
+                card.className = 'image-card';
+                
+                card.innerHTML = `
+                    <div class="image-container">
+                        <img src="${image.src}" alt="صورة ${image.id}" loading="lazy">
+                    </div>
+                    <div class="button-container">
+                        <button class="download-button" onclick="handleDownload(${image.id}, this)">
+                            <span class="icon">⬇️</span>
+                            <span>تحميل</span>
+                        </button>
+                    </div>
+                `;
+                
+                gallery.appendChild(card);
+            });
+        }
+
+        async function handleDownload(imageId, buttonElement) {
+            const image = imagesList.find(img => img.id === imageId);
+            if (!image) return;
+
+            buttonElement.classList.add('loading');
+            buttonElement.disabled = true;
+            const originalText = buttonElement.innerHTML;
+            buttonElement.innerHTML = '<span class="icon">⏳</span> <span>جاري...</span>';
+
+            try {
+                const response = await fetch(image.src);
+                
+                if (!response.ok) {
+                    throw new Error('خطأ في التحميل');
+                }
+
+                const imageBlob = await response.blob();
+                const blobUrl = URL.createObjectURL(imageBlob);
+                
+                const downloadLink = document.createElement('a');
+                downloadLink.href = blobUrl;
+                downloadLink.download = `صورة-${imageId}-${Date.now()}.jpg`;
+                
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                
+                URL.revokeObjectURL(blobUrl);
+                
+                showSuccessMessage();
+
+            } catch (error) {
+                console.error('خطأ:', error);
+                showErrorMessage();
+            } finally {
+                buttonElement.classList.remove('loading');
+                buttonElement.disabled = false;
+                buttonElement.innerHTML = originalText;
+            }
+        }
+
+        function showSuccessMessage() {
+            const msg = document.getElementById('successMsg');
+            msg.classList.add('show');
+            
+            setTimeout(() => {
+                msg.classList.remove('show');
+            }, 3000);
+        }
+
+        function showErrorMessage() {
+            const msg = document.getElementById('errorMsg');
+            msg.classList.add('show');
+            
+            setTimeout(() => {
+                msg.classList.remove('show');
+            }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', createGallery);
+    </script>
+<footer>
+
+
+<style>
+  footer {
+    background: none;
+    padding: 20px 0;
+  }
+  .social {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  .social a img {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  .social a img:hover {
+    transform: translateY(-5px) scale(1.1);
+    filter: brightness(1.2);
+  }
+</style>
+
+</body
+</html>
